@@ -38,8 +38,24 @@ export default class ReactSoundDisplay extends Component {
       }, () => {
         this.visualize();
       });
+
+      this.setAudioMode(this.props);
     }
 
+  }
+
+  setAudioMode(props) {
+    const { play } = props;
+
+    if(play) {
+      AudioPlayer.play();
+    } else {
+      AudioPlayer.stop();
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+   this.setAudioMode(nextProps);
   }
 
   visualize= () => {
@@ -57,20 +73,9 @@ export default class ReactSoundDisplay extends Component {
 
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { play } = nextProps;
-
-    if(play) {
-      AudioPlayer.play();
-    } else {
-      AudioPlayer.stop();
-    }
-  }
-
   render() {
     const { width, height, className } = this.props;
-
-    return (<canvas ref="visualizer" height={height} width={width} className={this.props.className}></canvas>);
+    return (<canvas ref="visualizer" height={height} width={width} className={className}></canvas>);
   }
 }
 

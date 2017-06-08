@@ -21,7 +21,7 @@ export default class Demo extends Component {
     super(props);
     this.state = {
       play      : true,
-      isPlaying : false
+      isPlaying : true
     }
   }
 
