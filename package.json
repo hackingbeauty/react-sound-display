@@ -1,6 +1,6 @@
 {
   "name": "react-sound-display",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Display your sound file as a wave oscillation or frequency bars",
   "main": "lib/index.js",
   "jsnext:main": "es/index.js",
