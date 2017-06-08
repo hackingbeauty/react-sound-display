@@ -19,17 +19,29 @@ injectTapEventPlugin();
 export default class Demo extends Component {
   constructor(props){
     super(props);
+
+    const audioElem = new Audio();
+    audioElem.src = sampleAudio;
+
     this.state = {
       play      : true,
-      isPlaying : true
+      isPlaying : true,
+      audioElem : audioElem
     }
   }
 
   componentDidMount() {
+    const { audioElem } = this.state;
+
+    audioElem.play();
     ReactGA.pageview(window.location.pathname);
   }
 
   play= () => {
+    const { audioElem } = this.state;
+
+    audioElem.play();
+
     this.setState({
       play     : true,
       isPlaying: true
@@ -37,14 +49,17 @@ export default class Demo extends Component {
   }
 
   stop= () => {
+    const { audioElem } = this.state;
     this.setState({
       play      : false,
       isPlaying : false
     });
+    audioElem.pause();
   }
 
   render() {
-    const { play, isPlaying } = this.state;
+    const { play, isPlaying, audioElem } = this.state;
+
 
     return(
       <MuiThemeProvider>
@@ -53,8 +68,7 @@ export default class Demo extends Component {
           <p><a href="https://github.com/hackingbeauty/react-sound-display">Documentation</a></p>
           <ReactSoundDisplay
             className="react-sound-display"
-            audioElem={sampleAudio}
-            play={play}
+            audioElem={audioElem}
             backgroundColor="#FF4081"
             visualSetting="frequencyBars"
             strokeColor="#000000" />

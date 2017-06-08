@@ -20,42 +20,26 @@ export default class ReactSoundDisplay extends Component {
     }
   }
 
+
   componentDidMount() {
     const { onStop, audioElem } = this.props;
     const { visualizer } = this.refs;
     const canvas = visualizer;
     const canvasCtx = canvas.getContext("2d");
+    const analyser = AudioContext.getAnalyser();
 
     if(audioElem) {
-      const analyser = AudioContext.getAnalyser();
-
       AudioPlayer.create(audioElem);
-
-      this.setState({
-        analyser            : analyser,
-        canvas              : canvas,
-        canvasCtx           : canvasCtx
-      }, () => {
-        this.visualize();
-      });
-
-      this.setAudioMode(this.props);
     }
 
-  }
+    this.setState({
+      analyser            : analyser,
+      canvas              : canvas,
+      canvasCtx           : canvasCtx
+    }, () => {
+      this.visualize();
+    });
 
-  setAudioMode(props) {
-    const { play } = props;
-
-    if(play) {
-      AudioPlayer.play();
-    } else {
-      AudioPlayer.stop();
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-   this.setAudioMode(nextProps);
   }
 
   visualize= () => {
@@ -83,8 +67,7 @@ ReactSoundDisplay.propTypes = {
   backgroundColor : React.PropTypes.string,
   strokeColor     : React.PropTypes.string,
   className       : React.PropTypes.string,
-  height          : React.PropTypes.number,
-  play            : React.PropTypes.bool
+  height          : React.PropTypes.number
 };
 
 ReactSoundDisplay.defaultProps = {
