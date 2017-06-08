@@ -20,7 +20,7 @@ export default class Demo extends Component {
   constructor(props){
     super(props);
     this.state = {
-      play      : false,
+      play      : true,
       isPlaying : false
     }
   }
