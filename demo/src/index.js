@@ -14,15 +14,14 @@ require ('./styles.scss');
 
 injectTapEventPlugin();
 
-ReactGA.initialize('UA-98862819-1');
+// ReactGA.initialize('UA-98862819-1');
 
 export default class Demo extends Component {
   constructor(props){
     super(props);
     this.state = {
-      record: false,
-      blobObject: null,
-      isRecording: false
+      play      : false,
+      isPlaying : false
     }
   }
 
@@ -30,55 +29,49 @@ export default class Demo extends Component {
     ReactGA.pageview(window.location.pathname);
   }
 
-  startRecording= () => {
+  play= () => {
     this.setState({
-      record: true,
-      isRecording: true
+      play     : true,
+      isPlaying: true
     });
   }
 
-  stopRecording= () => {
+  stop= () => {
     this.setState({
-      record: false,
-      isRecording: false
+      play      : false,
+      isPlaying : false
     });
-  }
-
-  onStop= (blobObject) => {
-    this.setState({
-      blobURL : blobObject.blobURL
-    })
   }
 
   render() {
-    const { isRecording } = this.state;
+    const { play, isPlaying } = this.state;
 
     return(
       <MuiThemeProvider>
         <div>
           <h1>React-Sound-Display</h1>
-          <p><a href="https://github.com/hackingbeauty/react-mic">Documentation</a></p>
+          <p><a href="https://github.com/hackingbeauty/react-sound-display">Documentation</a></p>
           <ReactSoundDisplay
             className="react-sound-display"
             audioElem={sampleAudio}
-            play={false}
+            play={play}
             backgroundColor="#FF4081"
-            visualSetting="sinewave"
+            visualSetting="frequencyBars"
             strokeColor="#000000" />
           <br />
           <br />
           <FloatingActionButton
             className="btn"
             secondary={true}
-            disabled={isRecording}
-            onClick={this.startRecording}>
+            disabled={isPlaying}
+            onClick={this.play}>
             <MicrophoneOn />
           </FloatingActionButton>
           <FloatingActionButton
             className="btn"
             secondary={true}
-            disabled={!isRecording}
-            onClick={this.stopRecording}>
+            disabled={!isPlaying}
+            onClick={this.stop}>
             <MicrophoneOff />
           </FloatingActionButton>
           <br />

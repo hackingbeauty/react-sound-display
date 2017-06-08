@@ -15,7 +15,6 @@ export default class ReactSoundDisplay extends Component {
     super(props);
     this.state = {
       analyser            : null,
-      microphoneRecorder  : null,
       canvas              : null,
       canvasCtx           : null
     }
@@ -58,14 +57,18 @@ export default class ReactSoundDisplay extends Component {
 
   }
 
-  clear() {
-    const { canvasCtx, width, height } = this.state;
-    canvasCtx.clearRect(0, 0, width, height);
+  componentWillReceiveProps(nextProps) {
+    const { play } = nextProps;
+
+    if(play) {
+      AudioPlayer.play();
+    } else {
+      AudioPlayer.stop();
+    }
   }
 
   render() {
-    const { record, onStop, width, height } = this.props;
-    const { analyser, canvasCtx } = this.state;
+    const { width, height, className } = this.props;
 
     return (<canvas ref="visualizer" height={height} width={width} className={this.props.className}></canvas>);
   }
