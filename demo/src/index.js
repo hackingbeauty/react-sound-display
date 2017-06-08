@@ -3,11 +3,11 @@ import { render }                  from 'react-dom';
 import { FloatingActionButton,
         MuiThemeProvider }         from 'material-ui';
 import injectTapEventPlugin        from 'react-tap-event-plugin';
-import MicrophoneOn                from 'material-ui/svg-icons/av/mic';
-import MicrophoneOff               from 'material-ui/svg-icons/av/stop';
+import Play                        from 'material-ui/svg-icons/av/play-arrow';
+import Stop                        from 'material-ui/svg-icons/av/stop';
 
 import { ReactSoundDisplay }       from '../../src';
-import sampleAudio                 from './sample_audio.webm';
+import sampleAudio                 from './432Hz_Tibetan_Bowls.mp3';
 import ReactGA                     from 'react-ga';
 
 require ('./styles.scss');
@@ -65,14 +65,14 @@ export default class Demo extends Component {
             secondary={true}
             disabled={isPlaying}
             onClick={this.play}>
-            <MicrophoneOn />
+            <Play />
           </FloatingActionButton>
           <FloatingActionButton
             className="btn"
             secondary={true}
             disabled={!isPlaying}
             onClick={this.stop}>
-            <MicrophoneOff />
+            <Stop />
           </FloatingActionButton>
           <br />
           <br />
