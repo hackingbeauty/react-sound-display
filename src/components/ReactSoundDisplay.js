@@ -9,17 +9,16 @@ import AudioContext           from '../libs/AudioContext';
 import AudioPlayer            from '../libs/AudioPlayer';
 import Visualizer             from '../libs/Visualizer';
 
-
 export default class ReactSoundDisplay extends Component {
   constructor(props) {
     super(props);
     this.state = {
       analyser            : null,
       canvas              : null,
-      canvasCtx           : null
+      canvasCtx           : null,
+      audioNotLoaded      : true
     }
   }
-
 
   componentDidMount() {
     const { onStop, audioElem } = this.props;
@@ -27,9 +26,13 @@ export default class ReactSoundDisplay extends Component {
     const canvas = visualizer;
     const canvasCtx = canvas.getContext("2d");
     const analyser = AudioContext.getAnalyser();
+    const { audioNotLoaded } = this.state;
 
-    if(audioElem) {
+    if(audioElem && audioNotLoaded) {
       AudioPlayer.create(audioElem);
+      this.setState({
+        audioNotLoaded: false
+      });
     }
 
     this.setState({
