@@ -15,8 +15,7 @@ export default class ReactSoundDisplay extends Component {
     this.state = {
       analyser            : null,
       canvas              : null,
-      canvasCtx           : null,
-      audioNotLoaded      : true
+      canvasCtx           : null
     }
   }
 
@@ -28,11 +27,8 @@ export default class ReactSoundDisplay extends Component {
     const analyser = AudioContext.getAnalyser();
     const { audioNotLoaded } = this.state;
 
-    if(audioElem && audioNotLoaded) {
+    if(audioElem) {
       AudioPlayer.create(audioElem);
-      this.setState({
-        audioNotLoaded: false
-      });
     }
 
     this.setState({
@@ -43,6 +39,13 @@ export default class ReactSoundDisplay extends Component {
       this.visualize();
     });
 
+  }
+
+  shouldComponentUpdate=(nextProps) => {
+    if(nextProps.audioElem === this.props.audioElem) {
+      return false;
+    }
+    return true;
   }
 
   visualize= () => {
