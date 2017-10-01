@@ -28,22 +28,23 @@
     "deploy": "nwb build-react-component && gh-pages -d demo/dist"
   },
   "peerDependencies": {
-    "react": "15.x"
+    "react": "16.x"
   },
   "devDependencies": {
     "gh-pages": "^1.0.0",
     "material-ui": "^0.16.7",
     "nwb": "^0.15.6",
     "nwb-sass": "^0.6.0",
-    "react": "^15.4.1",
-    "react-dom": "^15.4.1",
-    "react-tap-event-plugin": "^2.0.1"
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "react-tap-event-plugin": "^3.0.2"
   },
   "author": "Mark Muskardin",
   "homepage": "https://hackingbeauty.github.io/react-sound-display",
   "license": "MIT",
   "repository": "https://github.com/hackingbeauty/react-sound-display",
   "dependencies": {
+    "prop-types": "^15.6.0",
     "react-ga": "^2.2.0"
   }
 }

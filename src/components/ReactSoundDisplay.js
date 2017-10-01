@@ -4,7 +4,8 @@
 // distortion curve for the waveshaper, thanks to Kevin Ennis
 // http://stackoverflow.com/questions/22312841/waveshaper-node-in-webaudio-how-to-emulate-distortion
 
-import React, { Component }   from 'react'
+import React, { Component }  from 'react'
+import PropTypes             from 'prop-types';
 import AudioContext           from '../libs/AudioContext';
 import AudioPlayer            from '../libs/AudioPlayer';
 import Visualizer             from '../libs/Visualizer';
@@ -70,10 +71,10 @@ export default class ReactSoundDisplay extends Component {
 }
 
 ReactSoundDisplay.propTypes = {
-  backgroundColor : React.PropTypes.string,
-  strokeColor     : React.PropTypes.string,
-  className       : React.PropTypes.string,
-  height          : React.PropTypes.number
+  backgroundColor : PropTypes.string,
+  strokeColor     : PropTypes.string,
+  className       : PropTypes.string,
+  height          : PropTypes.number
 };
 
 ReactSoundDisplay.defaultProps = {
