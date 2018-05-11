@@ -26,6 +26,10 @@ export default class ReactSoundDisplay extends Component {
     const canvas = visualizer;
     const canvasCtx = canvas.getContext("2d");
     const analyser = AudioContext.getAnalyser();
+    const audioCtx = AudioContext.getAudioContext();
+
+    audioCtx.resume()
+
     const { audioNotLoaded } = this.state;
 
     if(audioElem) {
