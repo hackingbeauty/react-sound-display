@@ -20,31 +20,25 @@ export default class Demo extends Component {
   constructor(props){
     super(props);
 
-    const audioElem = new Audio();
-    audioElem.src = sampleAudio;
-
     this.state = {
       play      : true,
-      isPlaying : true,
-      audioElem : audioElem
+      isPlaying : false,
     }
   }
 
   componentDidMount() {
-    const { audioElem } = this.state;
-
-    audioElem.play();
     ReactGA.pageview(window.location.pathname);
   }
 
   play= () => {
-    const { audioElem } = this.state;
-
+    const audioElem = new Audio();
+    audioElem.src = sampleAudio;
     audioElem.play();
 
     this.setState({
       play     : true,
-      isPlaying: true
+      isPlaying: true,
+      audioElem
     });
   }
 
@@ -60,12 +54,13 @@ export default class Demo extends Component {
   render() {
     const { play, isPlaying, audioElem } = this.state;
 
-
     return(
       <MuiThemeProvider>
         <div>
           <h1>React-Sound-Display</h1>
           <p><a href="https://github.com/hackingbeauty/react-sound-display">Documentation</a></p>
+          <audio ref="audioSource" controls="controls" src={sampleAudio}></audio>
+
           <ReactSoundDisplay
             className="react-sound-display"
             audioElem={audioElem}
