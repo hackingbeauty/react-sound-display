@@ -1,15 +1,4 @@
 # react-sound-display
 
-Readme coming soon!
-
-# Demo
-
-Check out the [demo](https://hackingbeauty.github.io/react-sound-display/).
-
-
-## License
-
-MIT
-
-
-
+This package is no longer being maintained.
+Use at your own peril.
