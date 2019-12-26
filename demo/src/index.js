@@ -2,7 +2,6 @@ import React, {Component}          from 'react';
 import { render }                  from 'react-dom';
 import { FloatingActionButton,
         MuiThemeProvider }         from 'material-ui';
-import injectTapEventPlugin        from 'react-tap-event-plugin';
 import Play                        from 'material-ui/svg-icons/av/play-arrow';
 import Stop                        from 'material-ui/svg-icons/av/stop';
 
@@ -12,7 +11,6 @@ import ReactGA                     from 'react-ga';
 
 require ('./styles.scss');
 
-injectTapEventPlugin();
 
 // ReactGA.initialize('UA-98862819-1');
 
@@ -59,13 +57,12 @@ export default class Demo extends Component {
         <div>
           <h1>React-Sound-Display</h1>
           <p><a href="https://github.com/hackingbeauty/react-sound-display">Documentation</a></p>
-          <audio ref="audioSource" controls="controls" src={sampleAudio}></audio>
 
           <ReactSoundDisplay
             className="react-sound-display"
             audioElem={audioElem}
             backgroundColor="#FF4081"
-            visualSetting="frequencyBars"
+            visualSetting="sinewave"
             strokeColor="#000000" />
           <br />
           <br />
@@ -86,7 +83,6 @@ export default class Demo extends Component {
           <br />
           <br />
           <br />
-          <p>As featured in the course <br /><a href="http://singlepageapplication.com">How to Write a Single Page Application</a></p>
         </div>
     </MuiThemeProvider>
     );

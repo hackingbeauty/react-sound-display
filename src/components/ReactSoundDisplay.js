@@ -1,9 +1,3 @@
-// cool blog article on how to do this: http://www.smartjava.org/content/exploring-html5-web-audio-visualizing-sound
-// https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Visualizations_with_Web_Audio_API
-
-// distortion curve for the waveshaper, thanks to Kevin Ennis
-// http://stackoverflow.com/questions/22312841/waveshaper-node-in-webaudio-how-to-emulate-distortion
-
 import React, { Component }  from 'react'
 import PropTypes             from 'prop-types';
 import AudioContext           from '../libs/AudioContext';
@@ -13,10 +7,12 @@ import Visualizer             from '../libs/Visualizer';
 export default class ReactSoundDisplay extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
-      analyser            : null,
-      canvas              : null,
-      canvasCtx           : null
+      analyser: null,
+      audioCtx: null,
+      canvas: null,
+      canvasCtx: null
     }
   }
 
@@ -28,18 +24,11 @@ export default class ReactSoundDisplay extends Component {
     const analyser = AudioContext.getAnalyser();
     const audioCtx = AudioContext.getAudioContext();
 
-    audioCtx.resume()
-
-    const { audioNotLoaded } = this.state;
-
-    if(audioElem) {
-      AudioPlayer.create(audioElem);
-    }
-
     this.setState({
-      analyser            : analyser,
-      canvas              : canvas,
-      canvasCtx           : canvasCtx
+      analyser: analyser,
+      audioCtx: audioCtx,
+      canvas: canvas,
+      canvasCtx: canvasCtx
     }, () => {
       this.visualize();
     });
@@ -50,12 +39,27 @@ export default class ReactSoundDisplay extends Component {
     if(nextProps.audioElem === this.props.audioElem) {
       return false;
     }
+    nextProps.audioElem.onplay = this.onPlay
     return true;
+  }
+
+  onPlay = () => {
+    const { audioElem } = this.props
+    const { audioCtx } = this.state
+    AudioPlayer.create(audioElem);
+    audioCtx.resume()
+
   }
 
   visualize= () => {
     const self = this;
-    const { backgroundColor, strokeColor, width, height, visualSetting } = this.props;
+    const {
+      backgroundColor,
+      strokeColor,
+      width,
+      height,
+      visualSetting
+    } = this.props;
     const { canvas, canvasCtx, analyser } = this.state;
 
     if(visualSetting === 'sinewave') {
@@ -63,14 +67,19 @@ export default class ReactSoundDisplay extends Component {
 
     } else if(visualSetting === 'frequencyBars') {
       Visualizer.visualizeFrequencyBars(analyser, canvasCtx, canvas, width, height, backgroundColor, strokeColor);
-
     }
-
   }
 
   render() {
-    const { width, height, className } = this.props;
-    return (<canvas ref="visualizer" height={height} width={width} className={className}></canvas>);
+    const { width, height, className } = this.props
+    return (
+      <canvas
+        ref="visualizer"
+        height={height}
+        width={width}
+        className={className}
+      />
+    )
   }
 }
 
